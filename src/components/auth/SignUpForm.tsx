@@ -1,32 +1,36 @@
+// SignUpForm.tsx
 import { useMutation } from "@tanstack/react-query";
-import { userLogin } from "../../api/auth";
+import { userSignUp } from "../../api/auth"; // Define the sign-up API call method
 import InputField from "../InputField";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { User } from "../../types/auth";
 
-export default function LoginForm() {
+export default function SignUpForm() {
   const navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<User>();
 
   const mutation = useMutation({
     mutationFn: (data: User) => {
-      return userLogin(data);
+      return userSignUp(data);
     },
     onSuccess: (data: string) => {
       alert(data);
-      navigate("/");
+      navigate("/login");
     },
   });
 
   const onSubmit = async (data: User) => {
     mutation.mutate(data);
   };
+
+   const password = watch("password");
 
   return (
     <form className="space-y-4 mt-10" onSubmit={handleSubmit(onSubmit)}>
@@ -64,8 +68,21 @@ export default function LoginForm() {
         })}
         error={errors.password}
       />
+
+      <InputField
+        label="Confirm Password"
+        id="confirm-password"
+        type="password"
+        placeholder="••••••••"
+        register={register("confirmPassword", {
+          required: "Please confirm your password",
+          validate: (value) => value === password || "Passwords do not match",
+        })}
+        error={errors.confirmPassword}
+      />
+
       <button className="w-full bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
-        Login
+        Sign Up
       </button>
     </form>
   );

@@ -10,9 +10,11 @@ export const Header = () => {
             Login
           </button>
         </Link>
-        <button className="bg-white text-green-600 border border-green-600 px-4 py-2 rounded hover:bg-green-100">
-          Signup
-        </button>
+        <Link to="/signup">
+          <button className="bg-white text-green-600 border border-green-600 px-4 py-2 rounded hover:bg-green-100">
+            Signup
+          </button>
+        </Link>
       </div>
     </header>
   );

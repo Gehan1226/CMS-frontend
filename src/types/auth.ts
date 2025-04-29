@@ -1,4 +1,5 @@
-export type LoginFormInputs = {
+export type User = {
   userName: string;
   password: string;
+  confirmPassword?: string;
 };
