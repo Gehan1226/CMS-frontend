@@ -1,13 +1,7 @@
-import { Header } from "./components/home/Header";
-import { HeroSection } from "./components/home/HeroSection";
+import AppRouter from "./routes/AppRouter";
 
 const App = () => {
-  return (
-    <>
-      <Header />
-      <HeroSection />
-    </>
-  );
+  return <AppRouter />;
 };
 
 export default App;
