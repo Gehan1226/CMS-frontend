@@ -1,9 +1,13 @@
+import { Header } from "./components/home/Header";
+import { HeroSection } from "./components/home/HeroSection";
+
 const App = () => {
   return (
-    <div className="App">
-      <h1>Hello Vite + React!</h1>
-    </div>
-  )
-}
+    <>
+      <Header />
+      <HeroSection />
+    </>
+  );
+};
 
 export default App;
