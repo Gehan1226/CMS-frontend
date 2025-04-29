@@ -3,8 +3,11 @@ import { userLogin } from "../../api/auth";
 import { LoginFormInputs } from "../../types/auth";
 import InputField from "../InputField";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginForm() {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -14,6 +17,10 @@ export default function LoginForm() {
   const mutation = useMutation({
     mutationFn: (data: LoginFormInputs) => {
       return userLogin(data);
+    },
+    onSuccess: (data: string) => {
+      alert(data);
+      navigate("/");
     },
   });
 
