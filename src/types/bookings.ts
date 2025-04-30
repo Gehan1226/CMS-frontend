@@ -17,3 +17,12 @@ export type Booking = {
   service: Service;
   user: User;
 };
+
+export type BookingForm = {
+  customerName: string;
+  address: string;
+  date: string; 
+  time: string;
+  serviceId: number;
+  userId: number;
+};

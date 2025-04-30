@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Sidebar from "../Sidebar";
 import { Outlet } from "react-router-dom";
-import { LayoutDashboard } from "lucide-react";
+import { CalendarPlus, LayoutDashboard } from "lucide-react";
 
 const navItems = [
   {
@@ -9,6 +9,11 @@ const navItems = [
     icon: <LayoutDashboard strokeWidth={1.5} />,
     link: "/user/dashboard",
   },
+  {
+    label: "Add Booking",
+    icon: <CalendarPlus strokeWidth={1.5} />,
+    link: "/user/add-booking",
+  }
 ];
 
 export default function UserLayout() {
@@ -16,7 +21,11 @@ export default function UserLayout() {
 
   return (
     <div className="flex h-screen bg-gray-50">
-      <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} navItems={navItems} />
+      <Sidebar
+        isOpen={sidebarOpen}
+        onClose={() => setSidebarOpen(false)}
+        navItems={navItems}
+      />
 
       <div className="flex-1 flex flex-col">
         <div className="md:hidden p-4 bg-white shadow">

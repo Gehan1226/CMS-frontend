@@ -38,7 +38,7 @@ export default function Sidebar({
       </div>
 
       <div className="flex flex-col justify-between h-full">
-        <nav className="mt-5 px-4 space-y-4">
+        <nav className="flex flex-col mt-5 px-4 space-y-4">
           {navItems.map((item) => {
             const isActive = location.pathname === item.link;
 
