@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import LoginForm from "./LoginForm";
 
 export default function LoginFormSection() {
@@ -15,7 +16,9 @@ export default function LoginFormSection() {
         <div className="mt-6 flex justify-between">
           <p className="text-gray-600">
             New user?{" "}
-            <span className="text-green-600 font-semibold">Sign up</span>
+            <Link to="/signup" className="text-green-600 font-semibold">
+              Sign up{" "}
+            </Link>
           </p>
 
           <p className="text-gray-600">Forgot password?</p>

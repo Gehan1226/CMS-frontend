@@ -1,6 +1,6 @@
 export default function SignUpWelcomeSection() {
   return (
-    <div className="bg-green-50">
+    <div className="bg-green-50 shadow-[-10px_0_10px_-5px_rgba(0,0,0,0.1)]">
       <h1 className="text-2xl font-bold text-green-700 p-4">CleanSwift</h1>
       <div className="mt-10 p-4 text-center">
         <h1 className="text-4xl font-bold text-green-700 mb-4">

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import SignUpForm from "./SignUpForm";
 
 export default function SignupFormSection() {
@@ -15,7 +16,9 @@ export default function SignupFormSection() {
         <div className="mt-6">
           <p className="text-gray-600">
             Already have an account?{" "}
-            <span className="text-green-600 font-semibold">Log in</span>
+            <Link to="/login" className="text-green-600 font-semibold">
+              Login{" "}
+            </Link>
           </p>
         </div>
       </div>
