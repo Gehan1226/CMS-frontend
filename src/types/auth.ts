@@ -3,3 +3,8 @@ export type User = {
   password: string;
   confirmPassword?: string;
 };
+
+export type UserResponse = {
+  id: number;
+  userName: string;
+}

@@ -1,4 +1,5 @@
-import { User } from "../types/auth";
+import { User, UserResponse } from "../types/auth";
+import { extractSubject, getAccessToken } from "../util/cookie";
 
 export const userLogin = async (data: User): Promise<string> => {
   try {
@@ -8,6 +9,7 @@ export const userLogin = async (data: User): Promise<string> => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
+      credentials: "include",
     });
 
     if (!response.ok) {
@@ -28,7 +30,6 @@ export const userLogin = async (data: User): Promise<string> => {
   }
 };
 
-// api/auth.ts
 export const userSignUp = async (data: User): Promise<string> => {
   try {
     const response = await fetch("http://localhost:8080/api/v1/auth", {
@@ -54,5 +55,33 @@ export const userSignUp = async (data: User): Promise<string> => {
     } else {
       throw new Error("An unknown error occurred during signup");
     }
+  }
+};
+
+export const getUserDetails = async (): Promise<UserResponse> => {
+  try {
+    const accessToken = getAccessToken();
+    if (!accessToken) {
+      throw new Error("Access token not found");
+    }
+    const userName = extractSubject(accessToken);
+    const response = await fetch(`http://localhost:8080/api/v1/auth/user/${userName}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+      credentials: "include",
+    });
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    const result = await response.json();
+    return result.data;
+  } catch (error) {
+    console.error(error);
+    throw new Error("An unknown error occurred");
   }
 };
