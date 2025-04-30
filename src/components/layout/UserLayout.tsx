@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Sidebar from "../Sidebar";
 import { Outlet } from "react-router-dom";
 import { CalendarPlus, LayoutDashboard } from "lucide-react";
+import { UserContext } from "../../context/UserContext";
+import { useQuery } from "@tanstack/react-query";
+import { getUserDetails } from "../../api/auth";
 
 const navItems = [
   {
@@ -13,11 +16,23 @@ const navItems = [
     label: "Add Booking",
     icon: <CalendarPlus strokeWidth={1.5} />,
     link: "/user/add-booking",
-  }
+  },
 ];
 
 export default function UserLayout() {
+  const userContext = useContext(UserContext);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  useQuery({
+    queryKey: ["user"],
+    queryFn: () => getUserDetails(),
+    onSuccess: (data) => {
+      if (data) {
+        userContext?.setUser(data);
+      }
+    },
+    enabled: !!userContext,
+  });
 
   return (
     <div className="flex h-screen bg-gray-50">

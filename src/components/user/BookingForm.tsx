@@ -1,8 +1,7 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import InputField from "../InputField";
 import { BookingFormValues } from "../../types/bookings";
-import { UserContext } from "../../context/UserContext";
 
 type BookingFormProps = {
   defaultValues?: Partial<BookingFormValues>;
@@ -13,8 +12,6 @@ export default function BookingForm({
   defaultValues,
   onSubmit,
 }: Readonly<BookingFormProps>) {
-  const userContext = useContext(UserContext);
-
   const {
     register,
     handleSubmit,
@@ -27,7 +24,6 @@ export default function BookingForm({
       date: "",
       time: "",
       serviceId: undefined,
-      userId: userContext?.user?.id,
       ...defaultValues,
     },
   });
