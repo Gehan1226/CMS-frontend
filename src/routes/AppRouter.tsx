@@ -6,6 +6,7 @@ import UserLayout from "../components/layout/UserLayout";
 import Dashboard from "../pages/user/Dashboard";
 import { UserProvider } from "../context/UserContext";
 import AddBooking from "../pages/user/AddBooking";
+import ManageBookings from "../pages/user/ManageBookings";
 
 const AppRouter = () => {
   return (
@@ -18,6 +19,7 @@ const AppRouter = () => {
         <Route path="/user" element={<UserLayout />}>
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="add-booking" element={<AddBooking />} />
+          <Route path="manage-bookings" element={<ManageBookings />} />
         </Route>
       </Routes>
     </UserProvider>

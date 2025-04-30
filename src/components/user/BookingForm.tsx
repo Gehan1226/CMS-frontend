@@ -1,45 +1,53 @@
-import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import InputField from "../InputField";
-import { BookingFormValues } from "../../types/bookings";
+import { Booking, BookingFormValues } from "../../types/bookings";
 
 type BookingFormProps = {
-  defaultValues?: Partial<BookingFormValues>;
-  onSubmit: (data: BookingFormValues) => void;
+  defaultValues?: Booking;
+  onSubmit?: (data: BookingFormValues) => void;
+  onUpdate?: (id: number, data: BookingFormValues) => void;
 };
 
 export default function BookingForm({
   defaultValues,
   onSubmit,
+  onUpdate,
 }: Readonly<BookingFormProps>) {
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm<BookingFormValues>({
     defaultValues: {
-      customerName: "",
-      address: "",
-      date: "",
-      time: "",
-      serviceId: undefined,
-      ...defaultValues,
+      customerName: defaultValues?.customerName ?? "",
+      address: defaultValues?.address ?? "",
+      date: defaultValues?.date ?? "",
+      time: defaultValues?.time ?? "",
+      serviceId: defaultValues?.service?.id ?? undefined,
+      userId: defaultValues?.user?.id,
     },
   });
 
-  useEffect(() => {
-    if (defaultValues) {
-      reset({
-        userId: 1,
-        ...defaultValues,
-      });
+  // useEffect(() => {
+  //   if (defaultValues) {
+  //     reset({
+
+  //       ...defaultValues,
+  //     });
+  //   }
+  // }, [defaultValues, reset]);
+
+  const onFormSubmit = (data: BookingFormValues) => {
+    if (defaultValues?.id && onUpdate) {
+      onUpdate(defaultValues.id, data);
+    } else if (onSubmit) {
+      onSubmit(data);
     }
-  }, [defaultValues, reset]);
+  };
 
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(onFormSubmit)}
       className="flex flex-col gap-5 px-5"
     >
       <InputField

@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import Sidebar from "../Sidebar";
 import { Outlet } from "react-router-dom";
-import { CalendarPlus, LayoutDashboard } from "lucide-react";
+import { CalendarCog, CalendarPlus, LayoutDashboard } from "lucide-react";
 import { UserContext } from "../../context/UserContext";
 import { useQuery } from "@tanstack/react-query";
 import { getUserDetails } from "../../api/auth";
@@ -16,6 +16,11 @@ const navItems = [
     label: "Add Booking",
     icon: <CalendarPlus strokeWidth={1.5} />,
     link: "/user/add-booking",
+  },
+  {
+    label: "Manage Bookings",
+    icon: <CalendarCog strokeWidth={1.5} />,
+    link: "/user/manage-bookings",
   },
 ];
 
