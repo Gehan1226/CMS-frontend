@@ -18,7 +18,7 @@ export type Booking = {
   user: User;
 };
 
-export type BookingForm = {
+export type BookingFormValues = {
   customerName: string;
   address: string;
   date: string; 
