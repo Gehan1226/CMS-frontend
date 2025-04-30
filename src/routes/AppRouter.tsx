@@ -4,19 +4,23 @@ import LoginPage from "../pages/LoginPage";
 import SignupPage from "../pages/SignupPage";
 import UserLayout from "../components/layout/UserLayout";
 import Dashboard from "../pages/user/Dashboard";
+import { UserProvider } from "../context/UserContext";
 
 const AppRouter = () => {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/signup" element={<SignupPage />} />
+    <UserProvider>
+      {" "}
+      {/* Wrap the entire Routes in UserProvider */}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
 
-      <Route path="/user" element={<UserLayout />}>
-        <Route path="dashboard" element={<Dashboard />} />
-      </Route>
-
-    </Routes>
+        <Route path="/user" element={<UserLayout />}>
+          <Route path="dashboard" element={<Dashboard />} />
+        </Route>
+      </Routes>
+    </UserProvider>
   );
 };
 

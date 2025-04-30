@@ -65,7 +65,7 @@ export const getUserDetails = async (): Promise<UserResponse> => {
       throw new Error("Access token not found");
     }
     const userName = extractSubject(accessToken);
-    const response = await fetch(`http://localhost:8080/api/v1/auth/user/${userName}`, {
+    const response = await fetch(`http://localhost:8080/api/v1/auth/${userName}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
