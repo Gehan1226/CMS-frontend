@@ -4,9 +4,9 @@ import LoginPage from "../pages/LoginPage";
 import SignupPage from "../pages/SignupPage";
 import UserLayout from "../components/layout/UserLayout";
 import Dashboard from "../pages/user/Dashboard";
-import { UserProvider } from "../context/UserContext";
 import AddBooking from "../pages/user/AddBooking";
 import ManageBookings from "../pages/user/ManageBookings";
+import { UserProvider } from "../provider/UserProvider";
 
 const AppRouter = () => {
   return (
