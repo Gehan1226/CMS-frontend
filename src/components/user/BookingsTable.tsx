@@ -28,6 +28,10 @@ export default function BookingsTable() {
   const { data } = useQuery({
     queryKey: ["bookings"],
     queryFn: () => getBookingsByUserId(3),
+    retry: (failureCount, error: Error) => {
+      if (error.message.includes("Unauthorized")) return false;
+      return failureCount < 2;
+    },
   });
 
   const deleteMutation = useMutation({

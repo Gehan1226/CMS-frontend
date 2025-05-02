@@ -2,18 +2,16 @@ import React, { JSX, useContext } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 
-type PublicRouteProps = {
+type AuthRouteProps = {
   children: JSX.Element;
 };
 
-const AuthRoute: React.FC<PublicRouteProps> = ({ children }) => {
+const AuthRoute: React.FC<AuthRouteProps> = ({ children }) => {
   const userContext = useContext(UserContext);
   const location = useLocation();
   const pathname = location.pathname;
 
   const isUserPath = pathname.startsWith("/user");
-
-  console.log("PublicRoute - User Context:", userContext?.user);
 
   if (userContext?.user) {
     if (isUserPath) {

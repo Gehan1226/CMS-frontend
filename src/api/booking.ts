@@ -16,14 +16,13 @@ export const getBookingsByUserId = async (
     );
 
     if (!response.ok) {
-      throw new Error("Network response was not ok");
+      const errorResponse = await response.json();
+      throw new Error(errorResponse?.errorMessage ?? "Failed to fetch bookings");
     }
 
     const result = await response.json();
     return result.data;
   } catch (error) {
-    console.error(error);
-
     if (error instanceof Error) {
       throw new Error(error.message);
     } else {
@@ -52,7 +51,6 @@ export const createBooking = async (
     const result = await response.json();
     return result.message;
   } catch (error) {
-    console.error(error);
 
     if (error instanceof Error) {
       throw new Error(error.message);
