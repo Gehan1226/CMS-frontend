@@ -6,7 +6,7 @@ type PublicRouteProps = {
   children: JSX.Element;
 };
 
-const PublicRoute: React.FC<PublicRouteProps> = ({ children }) => {
+const AuthRoute: React.FC<PublicRouteProps> = ({ children }) => {
   const userContext = useContext(UserContext);
   const location = useLocation();
   const pathname = location.pathname;
@@ -31,4 +31,4 @@ const PublicRoute: React.FC<PublicRouteProps> = ({ children }) => {
   return children;
 };
 
-export default PublicRoute;
+export default AuthRoute;

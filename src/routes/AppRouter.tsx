@@ -6,61 +6,39 @@ import UserLayout from "../components/layout/UserLayout";
 import Dashboard from "../pages/user/Dashboard";
 import AddBooking from "../pages/user/AddBooking";
 import ManageBookings from "../pages/user/ManageBookings";
-import PublicRoute from "./PublicRoute";
+import AuthRoute from "./PublicRoute";
+
+const publicRoutes = [
+  { path: "/", element: <Home /> },
+  { path: "/login", element: <LoginPage /> },
+  { path: "/signup", element: <SignupPage /> },
+];
+
+const userRoutes = [
+  { path: "dashboard", element: <Dashboard /> },
+  { path: "add-booking", element: <AddBooking /> },
+  { path: "manage-bookings", element: <ManageBookings /> },
+];
 
 const AppRouter = () => {
   return (
     <Routes>
-      <Route
-        path="/"
-        element={
-          <PublicRoute>
-            <Home />
-          </PublicRoute>
-        }
-      />
-      <Route
-        path="/login"
-        element={
-          <PublicRoute>
-            <LoginPage />
-          </PublicRoute>
-        }
-      />
-      <Route
-        path="/signup"
-        element={
-          <PublicRoute>
-            <SignupPage />
-          </PublicRoute>
-        }
-      />
+      {publicRoutes.map(({ path, element }) => (
+        <Route
+          key={path}
+          path={path}
+          element={<AuthRoute>{element}</AuthRoute>}
+        />
+      ))}
 
       <Route path="/user" element={<UserLayout />}>
-        <Route
-          path="dashboard"
-          element={
-            <PublicRoute>
-              <Dashboard />
-            </PublicRoute>
-          }
-        />
-        <Route
-          path="add-booking"
-          element={
-            <PublicRoute>
-              <AddBooking />
-            </PublicRoute>
-          }
-        />
-        <Route
-          path="manage-bookings"
-          element={
-            <PublicRoute>
-              <ManageBookings />
-            </PublicRoute>
-          }
-        />
+        {userRoutes.map(({ path, element }) => (
+          <Route
+            key={path}
+            path={path}
+            element={<AuthRoute>{element}</AuthRoute>}
+          />
+        ))}
       </Route>
     </Routes>
   );
