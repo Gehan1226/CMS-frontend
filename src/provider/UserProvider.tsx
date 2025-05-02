@@ -1,28 +1,22 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useMemo } from "react";
 import { getUserDetails } from "../api/auth";
-import { UserResponse } from "../types/auth";
 import { UserContext } from "../context/UserContext";
+import { useQuery } from "@tanstack/react-query";
 
 export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [user, setUser] = useState<UserResponse | null>(null);
+  const { data: user, isLoading } = useQuery({
+    queryKey: ["user"],
+    queryFn: getUserDetails,
+    retry: false,
+    refetchOnWindowFocus: false,
+  });
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const userData = await getUserDetails();
-        setUser(userData);
-      } catch (error) {
-        console.error("Failed to fetch user", error);
-        setUser(null);
-      }
-    };
-
-    fetchUser();
-  }, []);
-
-  const value = useMemo(() => ({ user, setUser }), [user]);
+  const value = useMemo(
+    () => ({ user: user ?? null, isLoading }),
+    [user, isLoading]
+  );
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };

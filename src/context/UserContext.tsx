@@ -3,7 +3,7 @@ import { UserResponse } from "../types/auth";
 
 type UserContextType = {
   user: UserResponse | null;
-  setUser: (user: UserResponse | null) => void;
+  isLoading: boolean;
 };
 
 export const UserContext = createContext<UserContextType | undefined>(

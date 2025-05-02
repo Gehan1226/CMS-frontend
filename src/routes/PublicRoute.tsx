@@ -1,0 +1,34 @@
+import React, { JSX, useContext } from "react";
+import { Navigate, useLocation } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
+
+type PublicRouteProps = {
+  children: JSX.Element;
+};
+
+const PublicRoute: React.FC<PublicRouteProps> = ({ children }) => {
+  const userContext = useContext(UserContext);
+  const location = useLocation();
+  const pathname = location.pathname;
+
+  const isUserPath = pathname.startsWith("/user");
+
+  console.log("PublicRoute - User Context:", userContext?.user);
+
+  if (userContext?.user) {
+    if (isUserPath) {
+      return children;
+    } else {
+      return <Navigate to="/user/dashboard" replace />;
+    }
+  } else if (userContext?.user === null) {
+    if (!isUserPath) {
+      return children;
+    }
+    return <Navigate to="/" replace />;
+  }
+
+  return children;
+};
+
+export default PublicRoute;

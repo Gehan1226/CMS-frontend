@@ -20,7 +20,7 @@ export default function LoginForm() {
     },
     onSuccess: (data: string) => {
       alert(data);
-      navigate("/");
+      navigate("/user/dashboard", { replace: true });
     },
   });
 

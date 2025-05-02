@@ -6,23 +6,63 @@ import UserLayout from "../components/layout/UserLayout";
 import Dashboard from "../pages/user/Dashboard";
 import AddBooking from "../pages/user/AddBooking";
 import ManageBookings from "../pages/user/ManageBookings";
-import { UserProvider } from "../provider/UserProvider";
+import PublicRoute from "./PublicRoute";
 
 const AppRouter = () => {
   return (
-    <UserProvider>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignupPage />} />
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <PublicRoute>
+            <Home />
+          </PublicRoute>
+        }
+      />
+      <Route
+        path="/login"
+        element={
+          <PublicRoute>
+            <LoginPage />
+          </PublicRoute>
+        }
+      />
+      <Route
+        path="/signup"
+        element={
+          <PublicRoute>
+            <SignupPage />
+          </PublicRoute>
+        }
+      />
 
-        <Route path="/user" element={<UserLayout />}>
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="add-booking" element={<AddBooking />} />
-          <Route path="manage-bookings" element={<ManageBookings />} />
-        </Route>
-      </Routes>
-    </UserProvider>
+      <Route path="/user" element={<UserLayout />}>
+        <Route
+          path="dashboard"
+          element={
+            <PublicRoute>
+              <Dashboard />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="add-booking"
+          element={
+            <PublicRoute>
+              <AddBooking />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="manage-bookings"
+          element={
+            <PublicRoute>
+              <ManageBookings />
+            </PublicRoute>
+          }
+        />
+      </Route>
+    </Routes>
   );
 };
 
