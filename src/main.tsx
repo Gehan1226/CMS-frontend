@@ -3,8 +3,13 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 import App from "./App.tsx";
-import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { refreshToken } from "./api/auth.ts";
+import {
+  MutationCache,
+  QueryCache,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
+import { logout, refreshToken } from "./api/auth.ts";
 
 export const queryClient = new QueryClient({
   queryCache: new QueryCache({
@@ -12,6 +17,8 @@ export const queryClient = new QueryClient({
       if (error instanceof Error) {
         if (error.message.includes("Unauthorized: JWT has expired.")) {
           refreshToken();
+        } else if (error.message.includes("Unauthorized:")) {
+          logout();
         }
       }
     },

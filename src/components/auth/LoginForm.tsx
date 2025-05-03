@@ -4,9 +4,12 @@ import InputField from "../InputField";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { User } from "../../types/auth";
+import { UserContext } from "../../context/UserContext";
+import { useContext } from "react";
 
 export default function LoginForm() {
   const navigate = useNavigate();
+  const userContext = useContext(UserContext);
 
   const {
     register,
@@ -19,6 +22,7 @@ export default function LoginForm() {
       return userLogin(data);
     },
     onSuccess: (data: string) => {
+      userContext?.fetchUser();
       alert(data);
       navigate("/user/dashboard", { replace: true });
     },

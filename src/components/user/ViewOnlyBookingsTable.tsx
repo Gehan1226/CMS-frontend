@@ -9,6 +9,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getBookingsByUserId } from "../../api/booking";
 
 export default function ViewOnlyBookingsTable() {
+  
   const { data } = useQuery({
     queryKey: ["todos"],
     queryFn: () => getBookingsByUserId(3),

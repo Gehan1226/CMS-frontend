@@ -13,6 +13,8 @@ const AuthRoute: React.FC<AuthRouteProps> = ({ children }) => {
 
   const isUserPath = pathname.startsWith("/user");
 
+  console.log("userContext", userContext);
+
   if (userContext?.user) {
     if (isUserPath) {
       return children;

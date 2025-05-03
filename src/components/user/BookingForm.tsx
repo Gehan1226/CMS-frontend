@@ -28,15 +28,6 @@ export default function BookingForm({
     },
   });
 
-  // useEffect(() => {
-  //   if (defaultValues) {
-  //     reset({
-
-  //       ...defaultValues,
-  //     });
-  //   }
-  // }, [defaultValues, reset]);
-
   const onFormSubmit = (data: BookingFormValues) => {
     if (defaultValues?.id && onUpdate) {
       onUpdate(defaultValues.id, data);

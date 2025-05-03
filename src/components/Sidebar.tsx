@@ -1,8 +1,9 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { SidebarNavItem } from "../types/common";
 import { User2Icon } from "lucide-react";
 import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
+import { logout } from "../api/auth";
 
 type SidebarProps = {
   isOpen: boolean;
@@ -15,8 +16,18 @@ export default function Sidebar({
   onClose,
   navItems,
 }: Readonly<SidebarProps>) {
+  const navigate = useNavigate();
   const location = useLocation();
   const userContext = useContext(UserContext);
+
+  const mutation = {
+    mutationFn: async () => {
+      await logout();
+      userContext?.removeUser();
+      alert("Logout successful");
+      navigate("/", { replace: true });
+    },
+  };
 
   if (!userContext) {
     return <div>Error: User context is not available</div>;
@@ -59,10 +70,13 @@ export default function Sidebar({
           })}
         </nav>
 
-        <div className="flex px-8 gap-3 mb-5 text-gray-600 font-semibold">
+        <button
+          className="flex px-8 gap-3 mb-5 text-gray-600 font-semibold"
+          onClick={mutation.mutationFn}
+        >
           <User2Icon className="w-6 h-6" />
           <p>{user?.userName}</p>
-        </div>
+        </button>
       </div>
     </div>
   );

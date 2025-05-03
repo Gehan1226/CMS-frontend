@@ -64,14 +64,16 @@ export const refreshToken = async (): Promise<string> => {
     });
 
     if (!response.ok) {
-      throw new Error("Network response was not ok");
+      const errorResponse = await response.json();
+      throw new Error(errorResponse?.errorMessage ?? "Failed to refresh token");
     }
 
     const result = await response.json();
     return result.message;
   } catch (error) {
-    console.error(error);
-    throw new Error("An unknown error occurred");
+    throw new Error(
+      error instanceof Error ? error.message : "An unknown error occurred during token refresh"
+    );
   }
 };
 
@@ -87,11 +89,37 @@ export const getUserDetails = async (): Promise<UserResponse> => {
 
     if (!response.ok) {
       const errorResponse = await response.json();
-      throw new Error(errorResponse?.errorMessage ?? "Failed to fetch user details");
+      throw new Error(
+        errorResponse?.errorMessage ?? "Failed to fetch user details"
+      );
     }
 
     const result = await response.json();
     return result.data;
+  } catch (error) {
+    throw new Error(
+      error instanceof Error ? error.message : "An unknown error occurred"
+    );
+  }
+};
+
+export const logout = async (): Promise<string> => {
+  try {
+    const response = await fetch(`http://localhost:8080/api/v1/auth/logout`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    });
+
+    if (!response.ok) {
+      const errorResponse = await response.json();
+      throw new Error(errorResponse?.errorMessage ?? "Logout failed");
+    }
+
+    const result = await response.json();
+    return result.message;
   } catch (error) {
     throw new Error(
       error instanceof Error ? error.message : "An unknown error occurred"
